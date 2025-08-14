@@ -15,39 +15,39 @@ datasource db {
 }
 
 model Customer {
-  customerId String @id @unique @default(uuid())
-  name String
-  email String @unique
-  phone String
-  createdAt DateTime
+  customerId String   @id @unique @default(uuid())
+  name       String
+  email      String   @unique
+  phone      String
+  createdAt  DateTime @default(now())
+  Bike       Bike[]
 
   @@map("customers")
-  Bike Bike[]
 }
 
 model Bike {
-  bikeId String @id @unique @default(uuid())
-  brand String
-  model String
-  year Int
+  bikeId     String   @id @unique @default(uuid())
+  brand      String
+  model      String
+  year       Int
   customerId String
-  customer Customer @relation(fields: [bikeId], references: [customerId])
+  customer   Customer @relation(fields: [bikeId], references: [customerId])
 
   ServiceRecord ServiceRecord[]
 }
 
 model ServiceRecord {
-  serviceId String @id @unique @default(uuid())
-  bikeId String
-  bike Bike @relation(references: [bikeId], fields: [bikeId])
-  seviceDate DateTime
+  serviceId      String    @id @unique @default(uuid())
+  bikeId         String
+  bike           Bike      @relation(references: [bikeId], fields: [bikeId])
+  seviceDate     DateTime  @default(now())
   completionDate DateTime?
-  description String
-  status STATUS @default(PENDING)
+  description    String
+  status         STATUS    @default(PENDING)
 }
 
 enum STATUS {
-  PENDING @map("pending")
+  PENDING   @map("pending")
   INPROGRES @map("in-progres")
-  DONE @map("done")
+  DONE      @map("done")
 }

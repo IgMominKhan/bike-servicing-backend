@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "dev": "tsnd --respawn src/server.ts",
     "build": "tsc"
   },
   "devDependencies": {
@@ -12,5 +13,13 @@
     "tsx": "^4.20.3",
     "typescript": "^5.5.3"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@prisma/client": "6.13.0",
+    "@types/express": "^5.0.3",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "ts-node-dev": "^2.0.0",
+    "zod": "^4.0.17"
+  }
 }
