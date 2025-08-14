@@ -31,7 +31,7 @@ model Bike {
   model      String
   year       Int
   customerId String
-  customer   Customer @relation(fields: [bikeId], references: [customerId])
+  customer   Customer @relation(fields: [customerId], references: [customerId])
 
   ServiceRecord ServiceRecord[]
 }
