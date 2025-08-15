@@ -40,7 +40,7 @@ model ServiceRecord {
   serviceId      String    @id @unique @default(uuid())
   bikeId         String
   bike           Bike      @relation(references: [bikeId], fields: [bikeId])
-  seviceDate     DateTime  @default(now())
+  serviceDate    DateTime  @default(now())
   completionDate DateTime?
   description    String
   status         STATUS    @default(PENDING)
