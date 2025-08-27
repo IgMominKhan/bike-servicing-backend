@@ -1,64 +1,46 @@
-import { Request, Response } from "express";
 import __serviceService from "./service.service";
+import catchAsync from "../../shared/catchAsync";
+import createResponse from "../../shared/createResponse";
 
-const getServices = async (req: Request, res: Response) => {
+const getServices = catchAsync(async (_req, res) => {
   const data = await __serviceService.getServicesFromDB();
 
-  res.status(200).json({
-    success: true,
-    message: "Service records fetched successfully",
-    data
-  })
-}
+  new createResponse(200, true, "Service records fetched successfully", data).send(res)
+})
 
 
-const getSingleService = async (req: Request, res: Response) => {
+const getSingleService = catchAsync(async (req, res) => {
   const { id } = req.params;
   const data = await __serviceService.getSingleServiceFromDB(id);
 
-  res.status(200).json({
-    success: true,
-    message: "Service record fetched successfully",
-    data
-  })
-}
+  new createResponse(200, true, "Service record fetched successfully", data).send(res)
+})
 
 
-const createService = async (req: Request, res: Response) => {
+const createService = catchAsync(async (req, res) => {
 
   const data = await __serviceService.createServiceIntoDB(req.body)
 
-  res.status(200).json({
-    success: true,
-    message: "Service record created successfully",
-    data
-  })
-
-}
+  new createResponse(201, true, "Service record created successfully", data).send(res)
+})
 
 
-const updateService = async (req: Request, res: Response) => {
+const updateService = catchAsync(async (req, res) => {
   const { id } = req.params
   const data = await __serviceService.updateServiceIntoDB(id, req.body)
 
-  res.status(200).json({
-    success: true,
-    message: "Service marked as completed",
-    data
-  })
-}
+  new createResponse(200, true, "Service marked as completed", data).send(res)
+})
 
 
-const getServiceStatus = async (req: Request, res: Response) => {
+const getServiceStatus = catchAsync(async (_req, res) => {
   const data = await __serviceService.getServiceStatusFromDB();
 
-  res.status(200).json({
-    success: true,
-    message: "Overdue or pending services fetched successfully",
-    data
-  })
 
-}
+  new createResponse(200, true, "Overdue or pending services fetched successfully", data).send(res)
+})
+
+
 const __serviceController = {
   getServices,
   getSingleService,

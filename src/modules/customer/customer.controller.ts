@@ -1,64 +1,55 @@
+import createResponse from '../../shared/createResponse';
 import { Request, Response } from 'express';
 import __customerService from './customer.service'
-import { success } from 'zod';
+import z from 'zod';
+import { createCustomerSchema } from './customer.validator';
+import catchAsync from '../../shared/catchAsync';
 
 
-const getCustomers = async (_req: Request, res: Response) => {
+const getCustomers = catchAsync(async (_req, res) => {
   const data = await __customerService.getCustomersFromDB();
 
-  res.status(200).json({ success: true, message: "Customers fetched successfully", data })
-}
+  new createResponse(200, true, "Customers fetched successfully", data).send(res);
+})
 
 
-const createCustomer = async (req: Request, res: Response) => {
-  const data = await __customerService.createCustomerIntoDB(req.body);
+const createCustomer = catchAsync(async (req: Request, res: Response) => {
+  const payload = await z.parseAsync(createCustomerSchema, req.body)
+
+  const data = await __customerService.createCustomerIntoDB(payload);
+
+  new createResponse(201, true, "Customer created successfully", data).send(res);
+})
 
 
-  res.status(200).json({
-    success: true,
-    message: "Customer created successfully",
-    data
-  })
-}
-
-
-const getSingleCustomer = async (req: Request, res: Response) => {
+const getSingleCustomer = catchAsync(async (req, res) => {
   const data = await __customerService.getSingleCustomerFromDB(req.params.id)
 
-
-  res.status(200).json({
-    success: true,
-    message: "Customer fetched successfully",
-    data
-  })
-}
+  new createResponse(200, true, "Customer fetched successfully", data).send(res);
+})
 
 
-const updateCustomer = async (req: Request, res: Response) => {
+const updateCustomer = catchAsync(async (req, res) => {
   const { id } = req.params
 
   const payload = req.body
 
   const data = await __customerService.updateCustomerIntoDB(id, payload)
 
-  res.status(200).json({
-    success: true,
-    message: "Customer updated successfully",
-    data
-  })
-}
+  new createResponse(200, true, "Customer updated successfully", data).send(res);
+})
 
 
-const deleteCustomer = async (req: Request, res: Response) => {
+const deleteCustomer = catchAsync(async (req, res) => {
   const { id } = req.params;
 
   await __customerService.deleteCustomerFromDB(id);
 
-  res.status(200).json({
+  res.status(204).json({
     success: true,
     message: "Customer deleted successfully"
   })
-}
+})
 
 const __customerController = {
   getCustomers,

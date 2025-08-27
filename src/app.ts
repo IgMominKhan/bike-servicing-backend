@@ -1,5 +1,7 @@
 import express from 'express'
 import routes from './routes/routes'
+import handleNotFoundRoutes from './middlewares/handleNotFoundRoutes'
+import globalErrorHandler from './middlewares/globalErrorHandler'
 
 const app = express()
 
@@ -10,6 +12,12 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api', routes)
+
+// not found error handler
+app.use(handleNotFoundRoutes)
+
+// global error handling
+app.use(globalErrorHandler)
 
 
 export default app

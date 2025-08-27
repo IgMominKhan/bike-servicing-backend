@@ -1,39 +1,28 @@
-import { Request, Response } from "express";
 import __bikeService from "./bike.service";
+import catchAsync from "../../shared/catchAsync";
+import createResponse from "../../shared/createResponse";
 
-const getBikes = async (req: Request, res: Response) => {
+const getBikes = catchAsync(async (_req, res) => {
   const data = await __bikeService.getBikesFromDB();
 
-  res.status(200).json({
-    success: true,
-    message: "Bikes fetched successfully",
-    data
-  })
-}
+  new createResponse(200, true, "Bikes fetched successfully", data).send(res)
+})
 
 
-const createBike = async (req: Request, res: Response) => {
+const createBike = catchAsync(async (req, res) => {
   const data = await __bikeService.createBike(req.body)
 
-  res.status(201).json({
-    success: true,
-    message: "Bike created successfully",
-    data
-  })
-}
+  new createResponse(200, true, "Bike created successfully", data).send(res)
+})
 
 
-const getSingleBike = async (req: Request, res: Response) => {
+const getSingleBike = catchAsync(async (req, res) => {
   const { id } = req.params
 
   const data = await __bikeService.getSingleBikeFromDB(id);
 
-  res.status(200).json({
-    success: true,
-    message: "Bike fetched successfully",
-    data
-  })
-}
+  new createResponse(200, true, "Bike fetched successfully", data).send(res)
+})
 
 
 const __bikeController = {
