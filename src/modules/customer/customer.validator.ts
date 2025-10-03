@@ -6,4 +6,4 @@ export const createCustomerSchema = z.object({
   phone: z.string()
 })
 
-
+export const updateCustomerValidationSchema = createCustomerSchema.partial();

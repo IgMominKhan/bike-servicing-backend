@@ -1,17 +1,22 @@
 import { type ErrorRequestHandler } from 'express'
 import { ZodError } from 'zod'
 import createResponse from '../shared/createResponse'
+import { PrismaClientKnownRequestError } from '../../generated/prisma/runtime/library'
+import { styleText } from 'node:util'
 
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-
   if (err instanceof ZodError) {
-    console.log('-------------------- zod error handler -------------------')
-    res.status(409).json({
-      success: false,
-      message: err.message,
-      stack: process.env.NODE_ENV == 'development' ? err.stack : "Optional stack strace only on development"
-    })
+    new createResponse(409, false, JSON.parse(err.message)).send(res, err)
+  } else if (err instanceof PrismaClientKnownRequestError) {
+    console.log(styleText("redBright", "PRISMA ERROR"), err)
+    if (err.code === "P2025") {
+      new createResponse(404, false, `${err.meta?.modelName} not found`).send(res, err)
+    } else if (err.code === "P2002") {
+      new createResponse(409, false, `${err.meta?.target} already exists`).send(res, err)
+    } else {
+      new createResponse(409, false, err.message).send(res, err)
+    }
   }
 }
 

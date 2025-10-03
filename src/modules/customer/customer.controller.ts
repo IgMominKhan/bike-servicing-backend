@@ -2,7 +2,7 @@ import createResponse from '../../shared/createResponse';
 import { Request, Response } from 'express';
 import __customerService from './customer.service'
 import z from 'zod';
-import { createCustomerSchema } from './customer.validator';
+import { createCustomerSchema, updateCustomerValidationSchema } from './customer.validator';
 import catchAsync from '../../shared/catchAsync';
 
 
@@ -32,7 +32,8 @@ const getSingleCustomer = catchAsync(async (req, res) => {
 const updateCustomer = catchAsync(async (req, res) => {
   const { id } = req.params
 
-  const payload = req.body
+  console.log(req.body)
+  const payload = await updateCustomerValidationSchema.parseAsync(req.body);
 
   const data = await __customerService.updateCustomerIntoDB(id, payload)
 
@@ -45,7 +46,7 @@ const deleteCustomer = catchAsync(async (req, res) => {
 
   await __customerService.deleteCustomerFromDB(id);
 
-  res.status(204).json({
+  res.status(200).json({
     success: true,
     message: "Customer deleted successfully"
   })

@@ -16,7 +16,7 @@ const createCustomerIntoDB = async (payload: any) => {
 
 
 const getSingleCustomerFromDB = async (customerId: any) => {
-  const result = await prisma.customer.findUnique({ where: { customerId } })
+  const result = await prisma.customer.findUniqueOrThrow({ where: { customerId } })
 
   return result
 }

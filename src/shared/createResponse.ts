@@ -2,7 +2,7 @@ import { Response } from "express";
 
 
 class createResponse {
-  constructor(public code: number, public success: boolean, public message: string, public data: any) {
+  constructor(public code: number, public success: boolean, public message: string, public data?: any) {
   }
 
   send(res: Response, err?: Error) {

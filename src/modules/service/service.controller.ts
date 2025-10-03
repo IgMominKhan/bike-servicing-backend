@@ -1,6 +1,7 @@
 import __serviceService from "./service.service";
 import catchAsync from "../../shared/catchAsync";
 import createResponse from "../../shared/createResponse";
+import { createServiceValidationSchema, updateServiceValidationSchema } from "./service.validators";
 
 const getServices = catchAsync(async (_req, res) => {
   const data = await __serviceService.getServicesFromDB();
@@ -19,17 +20,26 @@ const getSingleService = catchAsync(async (req, res) => {
 
 const createService = catchAsync(async (req, res) => {
 
-  const data = await __serviceService.createServiceIntoDB(req.body)
+  const payload = await createServiceValidationSchema.parseAsync(req.body)
+
+  const data = await __serviceService.createServiceIntoDB(payload)
+
+  if (!data) return res.status(403).json({ success: false, status: 403, message: "No Bike Found" })
 
   new createResponse(201, true, "Service record created successfully", data).send(res)
 })
 
 
-const updateService = catchAsync(async (req, res) => {
-  const { id } = req.params
-  const data = await __serviceService.updateServiceIntoDB(id, req.body)
+// NOTE: SORRY SIR, I have modified the update service a bit
+// INFO: instead of just marking the service as completed, we can update other fields as well
 
-  new createResponse(200, true, "Service marked as completed", data).send(res)
+const updateService = catchAsync(async (req, res) => {
+
+  const payload = await updateServiceValidationSchema.parseAsync(req.body)
+
+  const data = await __serviceService.updateServiceIntoDB(req.params?.id, payload)
+
+  new createResponse(200, true, "Service updated successfully", data).send(res)
 })
 
 
