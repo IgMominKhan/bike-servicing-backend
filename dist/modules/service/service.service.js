@@ -20,6 +20,10 @@ const getServicesFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getSingleServiceFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.serviceRecord.findUniqueOrThrow({ where: { serviceId: id } });
+    if (result.status) {
+        // @ts-expect-error
+        result.status = service_constant_1.responseStatusType[result.status];
+    }
     return result;
 });
 const createServiceIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
