@@ -1,4 +1,3 @@
-import { STATUS } from "../../../generated/prisma";
 import prisma from "../../shared/prisma";
 import { requestStatusType, responseStatusType } from "./service.constant";
 
@@ -12,6 +11,11 @@ const getServicesFromDB = async () => {
 
 const getSingleServiceFromDB = async (id: string) => {
   const result = await prisma.serviceRecord.findUniqueOrThrow({ where: { serviceId: id } })
+
+  if (result.status) {
+    // @ts-expect-error
+    result.status = responseStatusType[result.status]
+  }
 
   return result
 }
