@@ -9,6 +9,7 @@ const handleNotFoundRoutes_1 = __importDefault(require("./middlewares/handleNotF
 const globalErrorHandler_1 = __importDefault(require("./middlewares/globalErrorHandler"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
