@@ -2,32 +2,34 @@
 
 This is the backend for a bike servicing application. It provides APIs for managing customers, bikes, and services.
 
+[Live Backend Link](https://bike-servicing-backend-production.up.railway.app)
+
 ## Features
 
-*   **Customer Management:** Create, read, update, and delete customers.
-*   **Bike Management:** Create and read bikes.
-*   **Service Management:** Create, read, and update services.
+- **Customer Management:** Create, read, update, and delete customers.
+- **Bike Management:** Create and read bikes.
+- **Service Management:** Create, read, and update services.
 
 ## Technologies Used
 
-*   [Node.js](https://nodejs.org/)
-*   [Express.js](https://expressjs.com/)
-*   [TypeScript](https://www.typescriptlang.org/)
-*   [Prisma](https://www.prisma.io/)
-*   [Zod](https://zod.dev/)
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Prisma](https://www.prisma.io/)
+- [Zod](https://zod.dev/)
 
 ## Getting Started
 
 ### Prerequisites
 
-*   [Node.js](https://nodejs.org/) (v14 or later)
-*   [pnpm](https://pnpm.io/)
+- [Node.js](https://nodejs.org/) (v14 or later)
+- [pnpm](https://pnpm.io/)
 
 ### Installation
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/your-username/bike-servicing-backend.git
+    git clone https://github.com/igmominkhan/bike-servicing-backend.git
     ```
 2.  Install dependencies:
     ```bash
@@ -54,25 +56,25 @@ The application will be running at `http://localhost:3000`.
 
 ### Customer Routes
 
-*   `GET /api/customers`: Get all customers.
-*   `POST /api/customers`: Create a new customer.
-*   `GET /api/customers/:id`: Get a single customer by ID.
-*   `PUT /api/customers/:id`: Update a customer by ID.
-*   `DELETE /api/customers/:id`: Delete a customer by ID.
+- `GET /api/customers`: Get all customers.
+- `POST /api/customers`: Create a new customer.
+- `GET /api/customers/:id`: Get a single customer by ID.
+- `PUT /api/customers/:id`: Update a customer by ID.
+- `DELETE /api/customers/:id`: Delete a customer by ID.
 
 ### Bike Routes
 
-*   `GET /api/bikes`: Get all bikes.
-*   `POST /api/bikes`: Create a new bike.
-*   `GET /api/bikes/:id`: Get a single bike by ID.
+- `GET /api/bikes`: Get all bikes.
+- `POST /api/bikes`: Create a new bike.
+- `GET /api/bikes/:id`: Get a single bike by ID.
 
 ### Service Routes
 
-*   `GET /api/services`: Get all services.
-*   `POST /api/services`: Create a new service.
-*   `GET /api/services/status`: Get service status.
-*   `GET /api/services/:id`: Get a single service by ID.
-*   `PUT /api/services/:id`: Update a service by ID.
+- `GET /api/services`: Get all services.
+- `POST /api/services`: Create a new service.
+- `GET /api/services/status`: Get service status.
+- `GET /api/services/:id`: Get a single service by ID.
+- `PUT /api/services/:id`: Update a service by ID.
 
 ## Project Structure
 
